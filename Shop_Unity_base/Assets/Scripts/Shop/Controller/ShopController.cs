@@ -2,6 +2,7 @@
 {
     using System;
     using Model;
+    using Model.Items;
 
     //This class provides a controller for a ShopModel. The Controller acts as a public interface for a ShopModel.
     //These methods are being called by ShopView, as it implements the user interface. The exception is Initialize(),

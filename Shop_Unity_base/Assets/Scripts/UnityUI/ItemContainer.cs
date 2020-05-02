@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 using Model;
+using Model.Items;
 
 //This class is applied to a button that represents an Item in the View. It is a visual representation of the item
 //when it is visible in the store. The class holds a link to the original Item, it sets the icon of the button to the one specified in the Item data,

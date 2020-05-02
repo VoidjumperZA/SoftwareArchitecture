@@ -4,9 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Model
+namespace Factories
 {
-    class CharacterModel
+    interface ItemFactory
     {
+        public Model.Items.Item CreateItem();
     }
 }

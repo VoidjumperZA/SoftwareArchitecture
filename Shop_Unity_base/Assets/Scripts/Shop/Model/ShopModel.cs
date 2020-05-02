@@ -1,4 +1,6 @@
-﻿namespace Model
+﻿using Model.Items;
+
+namespace Model
 {
     using System;
     using System.Collections.Generic;
