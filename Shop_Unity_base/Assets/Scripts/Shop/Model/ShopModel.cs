@@ -62,7 +62,7 @@
                 {
                     selectedItemIndex = index;
                 }
-                GXPEngine.Utils.print("Selected item index: " + index);
+                //GXPEngine.Utils.print("Selected item index: " + index);
             }
         }
 
