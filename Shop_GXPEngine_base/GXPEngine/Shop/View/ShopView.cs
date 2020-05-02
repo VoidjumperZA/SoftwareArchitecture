@@ -15,7 +15,10 @@
         const int Spacing = 80;
         const int Margin = 18;
 
-        private ShopModel shop;
+        const int flashInterval = 100;
+        private int flash = 0;
+
+        private ShopModel shopModel;
         private ShopController shopController;
 
         //the icon cache is built in here, that violates the S.R. principle.
@@ -26,7 +29,7 @@
         //------------------------------------------------------------------------------------------------------------------------        
         public ShopView(ShopModel shop, ShopController shopController) : base(340, 340)
         {
-            this.shop = shop;
+            this.shopModel = shop;
             this.shopController = shopController;
 
             iconCache = new Dictionary<string, Texture2D>();
@@ -43,6 +46,14 @@
             DrawBackground();
             DrawItems();
             HandleNavigation();
+            UpdateFlash();
+        }
+
+        private void UpdateFlash()
+        {
+            //Controls the flash rate of the icon
+            flash = flash <= 1000 ? flash + 1 : 0;
+            
         }
 
         //------------------------------------------------------------------------------------------------------------------------
@@ -82,7 +93,7 @@
         //------------------------------------------------------------------------------------------------------------------------        
         private void MoveSelection(int moveX, int moveY)
         {
-            int itemIndex = shop.GetSelectedItemIndex();
+            int itemIndex = shopModel.GetSelectedItemIndex();
             int currentSelectionX = GetColumnByIndex(itemIndex);
             int currentSelectionY = GetRowByIndex(itemIndex);
             int requestedSelectionX = currentSelectionX + moveX;
@@ -91,9 +102,9 @@
             if (requestedSelectionX >= 0 && requestedSelectionX < Columns) //check horizontal boundaries
             {
                 int newItemIndex = GetIndexFromGridPosition(requestedSelectionX, requestedSelectionY);
-                if (newItemIndex >= 0 && newItemIndex <= shop.GetItemCount()) //check vertical boundaries
+                if (newItemIndex >= 0 && newItemIndex <= shopModel.GetItemCount()) //check vertical boundaries
                 {
-                    Item item = shop.GetItemByIndex(newItemIndex);
+                    Item item = shopModel.GetItemByIndex(newItemIndex);
                     shopController.SelectItem(item);
                 }
             }
@@ -136,13 +147,13 @@
         //------------------------------------------------------------------------------------------------------------------------        
         private void DrawItems()
         {
-            List<Item> items = shop.GetItems();
+            List<Item> items = shopModel.GetItems();
             for (int index = 0; index < items.Count; index++)
             {
                 Item item = items[index];
                 int iconX = GetColumnByIndex(index) * Spacing + Margin;
                 int iconY = GetRowByIndex(index) * Spacing + Margin;
-                if (item == shop.GetSelectedItem())
+                if (item == shopModel.GetSelectedItem())
                 {
                     DrawSelectedItem(item, iconX, iconY);
                 }
@@ -169,7 +180,8 @@
         //------------------------------------------------------------------------------------------------------------------------        
         private void DrawSelectedItem(Item item, int iconX, int iconY)
         {
-            if (Utils.Random(0, 2) == 0)
+            //if (Utils.Random(0, 10) == 0)
+            if (flash % flashInterval > (flashInterval / 2))
             {
                 DrawItem(item, iconX, iconY);
             }

@@ -62,6 +62,7 @@
                 {
                     selectedItemIndex = index;
                 }
+                GXPEngine.Utils.print("Selected item index: " + index);
             }
         }
 
@@ -151,7 +152,8 @@
         //not implemented yet
         public void Buy()
         {
-            AddMessage("You can't buy this item yet!");
+            AddMessage("You can't buy this item yet!");            
+            itemList.Remove(GetSelectedItem());
         }
 
         //------------------------------------------------------------------------------------------------------------------------
